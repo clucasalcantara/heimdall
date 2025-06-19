@@ -30,7 +30,7 @@ Heimdall is POC of a real-time fraud detection engine designed to evaluate trans
 
 ### Installation
 
-\`\`\`bash
+```bash
 # Clone the repository
 git clone https://github.com/your-org/heimdall-fraud-detection.git
 cd heimdall-fraud-detection
@@ -40,7 +40,7 @@ npm install
 
 # Start development server
 npm run dev
-\`\`\`
+```
 
 Visit [http://localhost:3000](http://localhost:3000) to access the dashboard.
 
@@ -48,7 +48,7 @@ Visit [http://localhost:3000](http://localhost:3000) to access the dashboard.
 
 ### Analyze Transaction
 
-\`\`\`bash
+```bash
 curl -X POST http://localhost:3000/api/analyze \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -68,11 +68,11 @@ curl -X POST http://localhost:3000/api/analyze \\
       "last_four": "1234"
     }
   }'
-\`\`\`
+```
 
 ### Response Format
 
-\`\`\`json
+```json
 {
   "transaction_id": "txn_abc123",
   "overall_score": 0.23,
@@ -85,7 +85,7 @@ curl -X POST http://localhost:3000/api/analyze \\
   "triggered_rules": ["unusual_time_late_night"],
   "explanation": "Transaction scored 23.0% fraud risk. Key risk factors: Transaction at unusual hour: 2:00."
 }
-\`\`\`
+```
 
 ## 🏗️ Architecture
 
@@ -120,18 +120,18 @@ curl -X POST http://localhost:3000/api/analyze \\
 
 ### Environment Variables
 
-\`\`\`env
+```env
 # Optional: Configure external services
 DATABASE_URL=your_database_url
 REDIS_URL=your_redis_url
 API_KEY=your_api_key
-\`\`\`
+```
 
 ### Fraud Rules Configuration
 
 Rules can be customized in \`lib/fraud-rules.ts\`:
 
-\`\`\`typescript
+```typescript
 // Example: Custom amount threshold
 if (amount > 10000) {
   results.push({
@@ -142,7 +142,7 @@ if (amount > 10000) {
     category: "amount"
   })
 }
-\`\`\`
+```
 
 ## 📊 Dashboard Features
 
@@ -167,7 +167,7 @@ if (amount > 10000) {
 
 ### Project Structure
 
-\`\`\`
+```
 heimdall-fraud-detection/
 ├── app/                    # Next.js app directory
 │   ├── api/               # API routes
@@ -179,7 +179,7 @@ heimdall-fraud-detection/
 │   └── fraud-rules.ts    # Rules engine
 ├── components/            # UI components
 └── public/               # Static assets
-\`\`\`
+```
 
 ### Adding New Rules
 
@@ -188,36 +188,37 @@ heimdall-fraud-detection/
 3. Define rule metadata (name, severity, category)
 4. Test with sample transactions
 
-\`\`\`typescript
+```typescript
 // Example: New velocity rule
 private checkCustomVelocity(transaction: Transaction): RuleResult[] {
   // Your custom logic here
   return results
 }
-\`\`\`
+```
 
 ### Extending ML Features
 
 1. Add new features to \`MLFeatures\` interface in \`lib/ml-model.ts\`
-2. Implement feature extraction logic
-3. Update feature weights in \`predictFraudScore\`
-4. Test with historical data
+2. Update feature weights in \`predictFraudScore\`
+3. Test with historical data
 
 ## 🧪 Testing
 
 ### Unit Tests
-\`\`\`bash
+
+```bash
 npm test
-\`\`\`
+```
 
 ### Load Testing
 Use the built-in load testing dashboard at \`/testing\` or:
 
-\`\`\`bash
+```bash
 # API load test
 curl -X POST http://localhost:3000/api/test \\
   -H "Content-Type: application/json" \\
   -d '{"requests": 1000, "concurrent": 10}'
+```
 
 ## Manual Testing
 1. Navigate to the dashboard at \`/\`
