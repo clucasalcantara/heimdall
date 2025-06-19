@@ -1,0 +1,302 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+    --radius: 0.5rem;
+    --color-approve: #10b981;
+    --color-review: #f59e0b;
+    --color-block: #ef4444;
+    --color-risk: #6366f1;
+
+    /* Chart colors */
+    --chart-1: 210 100% 35%;
+    --chart-2: 220 70% 50%;
+    --chart-3: 250 70% 50%;
+    --chart-4: 280 70% 50%;
+    --chart-5: 320 70% 50%;
+
+    /* Sidebar colors */
+    --sidebar: 0 0% 100%;
+    --sidebar-foreground: 220 20% 20%;
+    --sidebar-accent: 220 20% 96%;
+    --sidebar-accent-foreground: 220 20% 20%;
+    --sidebar-border: 220 20% 90%;
+    --sidebar-ring: 210 100% 35%;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+
+    /* Chart colors */
+    --chart-1: 210 100% 50%;
+    --chart-2: 220 70% 60%;
+    --chart-3: 250 70% 60%;
+    --chart-4: 280 70% 60%;
+    --chart-5: 320 70% 60%;
+
+    /* Sidebar colors */
+    --sidebar: 220 20% 12%;
+    --sidebar-foreground: 220 20% 98%;
+    --sidebar-accent: 220 20% 16%;
+    --sidebar-accent-foreground: 220 20% 98%;
+    --sidebar-border: 220 20% 20%;
+    --sidebar-ring: 210 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Nordic-inspired custom styles */
+.nordic-gradient {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 50%, #94a3b8 75%, #64748b 100%);
+}
+
+.bifrost-gradient {
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 25%, #8b5cf6 50%, #a855f7 75%, #c084fc 100%);
+}
+
+.heimdall-glow {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(99, 102, 241, 0.2), 0 0 60px rgba(217, 119, 6, 0.1);
+}
+
+.rune-text {
+  font-family: "Courier New", monospace;
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+}
+
+/* Animated Nordic elements */
+@keyframes norse-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.norse-pulse {
+  animation: norse-pulse 2s ease-in-out infinite;
+}
+
+@keyframes bifrost-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.bifrost-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background-size: 200% 100%;
+  animation: bifrost-shimmer 2s infinite;
+}
+
+/* Custom scrollbar with Nordic theme */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%);
+  border-radius: 6px;
+  border: 2px solid #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+}
+
+/* Enhanced Nordic animations inspired by Heimdall */
+@keyframes golden-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(251, 191, 36, 0);
+  }
+}
+
+@keyframes bifrost-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes heimdall-watch {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: rotate(5deg) scale(1.1);
+    opacity: 0.9;
+  }
+  75% {
+    transform: rotate(-5deg) scale(1.1);
+    opacity: 0.9;
+  }
+}
+
+@keyframes golden-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.golden-pulse {
+  animation: golden-pulse 2s ease-in-out infinite;
+}
+
+.bifrost-flow {
+  background: linear-gradient(45deg, #3b82f6, #6366f1, #8b5cf6, #a855f7, #c084fc, #fbbf24, #f59e0b);
+  background-size: 400% 400%;
+  animation: bifrost-flow 3s ease infinite;
+}
+
+.heimdall-watch {
+  animation: heimdall-watch 4s ease-in-out infinite;
+}
+
+.golden-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.3), transparent);
+  background-size: 200% 100%;
+  animation: golden-shimmer 2s infinite;
+}
+
+/* Animation delays for staggered effects */
+.animation-delay-150 {
+  animation-delay: 150ms;
+}
+
+.animation-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animation-delay-500 {
+  animation-delay: 500ms;
+}
+
+/* Golden gradient text effects */
+.text-golden-gradient {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 25%, #d97706 50%, #fbbf24 75%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 100%;
+  animation: golden-shimmer 3s ease-in-out infinite;
+}
+
+/* Heimdall's mystical glow effects */
+.heimdall-glow-strong {
+  box-shadow: 0 0 30px rgba(251, 191, 36, 0.5), 0 0 60px rgba(245, 158, 11, 0.3), 0 0 90px rgba(217, 119, 6, 0.2), inset
+    0 0 20px rgba(251, 191, 36, 0.1);
+}
+
+/* Bifrost rainbow border effect */
+.bifrost-border {
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+    linear-gradient(45deg, #3b82f6, #6366f1, #8b5cf6, #a855f7, #fbbf24, #f59e0b) border-box;
+}
+
+/* Sidebar styling */
+.sidebar {
+  background: var(--sidebar);
+  color: var(--sidebar-foreground);
+  border-color: var(--sidebar-border);
+}
+
+.sidebar-accent {
+  background: var(--sidebar-accent);
+  color: var(--sidebar-accent-foreground);
+}
+
+.sidebar-ring {
+  ring-color: var(--sidebar-ring);
+}
+
+/* Card metric styling */
+.card-metric {
+  @apply flex flex-col items-center justify-center p-6 rounded-lg;
+}
+
+.card-metric-value {
+  @apply text-4xl font-bold;
+}
+
+.card-metric-label {
+  @apply text-sm text-muted-foreground mt-1;
+}
