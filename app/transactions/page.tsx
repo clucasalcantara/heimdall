@@ -117,10 +117,12 @@ export default function TransactionsPage() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
-      <div className="container mx-auto p-6">
+      <div className="container mx-auto p-4 md:p-6">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold mb-2">Transaction Monitor</h1>
-          <p className="text-gray-400">
+          <h1 className="text-2xl md:text-3xl font-bold mb-2">
+            Transaction Monitor
+          </h1>
+          <p className="text-gray-400 text-sm md:text-base">
             Monitor and review all transactions in real-time
           </p>
         </div>
@@ -128,13 +130,13 @@ export default function TransactionsPage() {
         {/* Filters */}
         <Card className="bg-gray-800 border-gray-700 mb-6">
           <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Filter className="mr-2 h-5 w-5" />
+            <CardTitle className="text-white flex items-center text-lg md:text-xl">
+              <Filter className="mr-2 h-4 w-4 md:h-5 md:w-5" />
               Filters
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
                 <label className="text-sm font-medium text-gray-200 mb-2 block">
                   Decision
@@ -173,7 +175,7 @@ export default function TransactionsPage() {
                 </Select>
               </div>
 
-              <div className="flex flex-col items-center justify-center">
+              <div className="sm:col-span-2 lg:col-span-1">
                 <label className="text-sm font-medium text-gray-200 mb-2 block">
                   Risk Score Range: {riskRange[0]} - {riskRange[1]}
                 </label>
@@ -199,6 +201,7 @@ export default function TransactionsPage() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="bg-gray-700 border-gray-600">
+                    <SelectItem value="10">10 transactions</SelectItem>
                     <SelectItem value="25">25 transactions</SelectItem>
                     <SelectItem value="50">50 transactions</SelectItem>
                     <SelectItem value="100">100 transactions</SelectItem>
@@ -212,21 +215,23 @@ export default function TransactionsPage() {
 
         {/* Transactions Table */}
         <Card className="bg-gray-800 border-gray-700">
-          <CardHeader className="flex flex-row items-center justify-between">
+          <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
             <div>
-              <CardTitle className="text-white">Recent Transactions</CardTitle>
-              <CardDescription className="text-gray-400">
+              <CardTitle className="text-white text-lg md:text-xl">
+                Recent Transactions
+              </CardTitle>
+              <CardDescription className="text-gray-400 text-sm">
                 Showing {transactions.length} transactions • Auto-refreshes
                 every 15s
               </CardDescription>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full sm:w-auto">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={handleGenerateTransaction}
                 disabled={generating}
-                className="border-gray-600 text-gray-200 hover:bg-gray-700"
+                className="border-gray-600 text-gray-200 hover:bg-gray-700 flex-1 sm:flex-none"
               >
                 <Plus
                   className={`mr-2 h-4 w-4 ${generating ? "animate-spin" : ""}`}
@@ -238,7 +243,7 @@ export default function TransactionsPage() {
                 size="sm"
                 onClick={handleRefresh}
                 disabled={refreshing}
-                className="border-gray-600 text-gray-200 hover:bg-gray-700"
+                className="border-gray-600 text-gray-200 hover:bg-gray-700 flex-1 sm:flex-none"
               >
                 <RefreshCw
                   className={`mr-2 h-4 w-4 ${refreshing ? "animate-spin" : ""}`}
@@ -279,25 +284,25 @@ export default function TransactionsPage() {
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-700">
-                      <th className="px-4 py-3 text-left font-medium text-gray-200">
+                      <th className="px-2 md:px-4 py-3 text-left font-medium text-gray-200">
                         ID
                       </th>
-                      <th className="px-4 py-3 text-left font-medium text-gray-200">
+                      <th className="px-2 md:px-4 py-3 text-left font-medium text-gray-200 hidden sm:table-cell">
                         User
                       </th>
-                      <th className="px-4 py-3 text-left font-medium text-gray-200">
+                      <th className="px-2 md:px-4 py-3 text-left font-medium text-gray-200">
                         Country
                       </th>
-                      <th className="px-4 py-3 text-left font-medium text-gray-200">
+                      <th className="px-2 md:px-4 py-3 text-left font-medium text-gray-200">
                         Amount
                       </th>
-                      <th className="px-4 py-3 text-left font-medium text-gray-200">
+                      <th className="px-2 md:px-4 py-3 text-left font-medium text-gray-200 hidden md:table-cell">
                         Time
                       </th>
-                      <th className="px-4 py-3 text-left font-medium text-gray-200">
-                        Risk Score
+                      <th className="px-2 md:px-4 py-3 text-left font-medium text-gray-200">
+                        Risk
                       </th>
-                      <th className="px-4 py-3 text-left font-medium text-gray-200">
+                      <th className="px-2 md:px-4 py-3 text-left font-medium text-gray-200">
                         Decision
                       </th>
                     </tr>
@@ -309,17 +314,25 @@ export default function TransactionsPage() {
                         className="border-b border-gray-700 hover:bg-gray-700/50 cursor-pointer text-gray-300 transition-colors"
                         onClick={() => handleRowClick(tx)}
                       >
-                        <td className="px-4 py-3 font-mono text-xs">
-                          {tx.id.slice(0, 8)}...
+                        <td className="px-2 md:px-4 py-3 font-mono text-xs">
+                          {tx.id.slice(0, 6)}...
                         </td>
-                        <td className="px-4 py-3">{tx.user}</td>
-                        <td className="px-4 py-3">{tx.country}</td>
-                        <td className="px-4 py-3 font-semibold">{tx.amount}</td>
-                        <td className="px-4 py-3 text-gray-400">{tx.time}</td>
-                        <td className="px-4 py-3">
+                        <td className="px-2 md:px-4 py-3 hidden sm:table-cell text-xs md:text-sm">
+                          {tx.user}
+                        </td>
+                        <td className="px-2 md:px-4 py-3 text-xs md:text-sm">
+                          {tx.country}
+                        </td>
+                        <td className="px-2 md:px-4 py-3 font-semibold text-xs md:text-sm">
+                          {tx.amount}
+                        </td>
+                        <td className="px-2 md:px-4 py-3 text-gray-400 hidden md:table-cell text-xs">
+                          {tx.time}
+                        </td>
+                        <td className="px-2 md:px-4 py-3">
                           <RiskScoreBadge score={tx.riskScore} />
                         </td>
-                        <td className="px-4 py-3">
+                        <td className="px-2 md:px-4 py-3">
                           <DecisionBadge decision={tx.decision} />
                         </td>
                       </tr>
@@ -351,7 +364,7 @@ function RiskScoreBadge({ score }: { score: number }) {
 
   return (
     <span
-      className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium border ${color}`}
+      className={`inline-flex items-center rounded-full px-1.5 md:px-2 py-0.5 md:py-1 text-xs font-medium border ${color}`}
     >
       {score}
     </span>
@@ -359,12 +372,14 @@ function RiskScoreBadge({ score }: { score: number }) {
 }
 
 function DecisionBadge({ decision }: { decision: string }) {
+  const baseClasses = "text-xs px-1.5 md:px-2 py-0.5 md:py-1";
+
   switch (decision) {
     case "approve":
       return (
         <Badge
           variant="outline"
-          className="bg-green-900 text-green-300 border-green-700 hover:bg-green-900"
+          className={`${baseClasses} bg-green-900 text-green-300 border-green-700 hover:bg-green-900`}
         >
           Approve
         </Badge>
@@ -373,7 +388,7 @@ function DecisionBadge({ decision }: { decision: string }) {
       return (
         <Badge
           variant="outline"
-          className="bg-yellow-900 text-yellow-300 border-yellow-700 hover:bg-yellow-900"
+          className={`${baseClasses} bg-yellow-900 text-yellow-300 border-yellow-700 hover:bg-yellow-900`}
         >
           Review
         </Badge>
@@ -382,14 +397,17 @@ function DecisionBadge({ decision }: { decision: string }) {
       return (
         <Badge
           variant="outline"
-          className="bg-red-900 text-red-300 border-red-700 hover:bg-red-900"
+          className={`${baseClasses} bg-red-900 text-red-300 border-red-700 hover:bg-red-900`}
         >
           Decline
         </Badge>
       );
     default:
       return (
-        <Badge variant="outline" className="border-gray-600 text-gray-300">
+        <Badge
+          variant="outline"
+          className={`${baseClasses} border-gray-600 text-gray-300`}
+        >
           {decision}
         </Badge>
       );

@@ -72,10 +72,10 @@ export default function DashboardPage() {
         setEcosystemData({
           activeUsers: stats.total_transactions || 0,
           newUsers: Math.floor((stats.total_transactions || 0) * 0.15),
-          avgSessionTime: "12m 34s", // This would come from user behavior tracking
+          avgSessionTime: "12m 34s",
           countriesCovered: countries.length || 0,
-          currenciesSupported: Math.min(countries.length, 23), // Estimate based on countries
-          paymentMethods: 15, // This would come from payment method tracking
+          currenciesSupported: Math.min(countries.length, 23),
+          paymentMethods: 15,
           uptime: stats.uptime || 99.97,
           responseTime: stats.avg_processing_time || 0,
           throughput: Math.floor((stats.total_transactions || 0) / 24) || 0,
@@ -88,150 +88,164 @@ export default function DashboardPage() {
 
   return (
     <DashboardShell>
-      <DashboardHeader
-        heading="Heimdall Fraud Detection"
-        subheading="Real-time fraud detection and risk assessment platform"
-      >
-        <div className="flex items-center gap-2">
-          <Badge
-            variant="outline"
-            className="bg-green-900/20 text-green-400 border-green-700"
-          >
-            <Activity className="mr-1 h-3 w-3" />
-            System Online
-          </Badge>
-          <Badge
-            variant="outline"
-            className="bg-blue-900/20 text-blue-400 border-blue-700"
-          >
-            <Shield className="mr-1 h-3 w-3" />
-            {systemStats?.accuracy
-              ? `${(systemStats.accuracy * 100).toFixed(1)}% Accuracy`
-              : "Loading..."}
-          </Badge>
+      <div className="space-y-6 p-4 sm:p-6 lg:p-8">
+        <DashboardHeader
+          heading="Heimdall Fraud Detection"
+          subheading="Real-time fraud detection and risk assessment platform"
+        >
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+            <Badge
+              variant="outline"
+              className="bg-green-900/20 text-green-400 border-green-700"
+            >
+              <Activity className="mr-1 h-3 w-3" />
+              System Online
+            </Badge>
+            <Badge
+              variant="outline"
+              className="bg-blue-900/20 text-blue-400 border-blue-700"
+            >
+              <Shield className="mr-1 h-3 w-3" />
+              {systemStats?.accuracy
+                ? `${(systemStats.accuracy * 100).toFixed(1)}% Accuracy`
+                : "Loading..."}
+            </Badge>
+          </div>
+        </DashboardHeader>
+
+        {/* System Health Overview */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="md:col-span-2">
+            <SystemHealthCard />
+          </div>
+          <div className="md:col-span-2">
+            <PerformanceMetrics />
+          </div>
         </div>
-      </DashboardHeader>
 
-      {/* System Health Overview */}
-      <div className="grid gap-4 md:grid-cols-4 mb-6">
-        <SystemHealthCard />
-        <PerformanceMetrics />
-      </div>
-
-      {/* KPI Cards */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-6">
-        <KpiCards />
-      </div>
-
-      {/* Main Content Grid */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7 mb-6">
-        <div className="col-span-4">
-          <RiskDistributionChart />
+        {/* KPI Cards */}
+        <div>
+          <KpiCards />
         </div>
-        <div className="col-span-3">
-          <TopRiskyCountries />
+
+        {/* Main Content Grid */}
+        <div className="grid gap-6 lg:grid-cols-7">
+          <div className="lg:col-span-4">
+            <RiskDistributionChart />
+          </div>
+          <div className="lg:col-span-3">
+            <TopRiskyCountries />
+          </div>
         </div>
-      </div>
 
-      {/* Recent Transactions */}
-      <div className="mb-6">
-        <RecentTransactions />
-      </div>
+        {/* Recent Transactions */}
+        <div>
+          <RecentTransactions />
+        </div>
 
-      {/* Ecosystem Health Summary */}
-      <div className="grid gap-6 md:grid-cols-3">
-        <Card className="bg-gray-800 border-gray-700">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Users className="mr-2 h-5 w-5 text-blue-400" />
-              User Activity
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300">Active Users (24h)</span>
-                <span className="text-white font-semibold">
-                  {ecosystemData.activeUsers}
-                </span>
+        {/* Ecosystem Health Summary */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <Card className="bg-gray-800 border-gray-700">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center text-lg">
+                <Users className="mr-2 h-5 w-5 text-blue-400" />
+                User Activity
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-300 text-sm">
+                    Active Users (24h)
+                  </span>
+                  <span className="text-white font-semibold">
+                    {ecosystemData.activeUsers}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-300 text-sm">New Users Today</span>
+                  <span className="text-white font-semibold">
+                    {ecosystemData.newUsers}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-300 text-sm">
+                    Avg. Session Time
+                  </span>
+                  <span className="text-white font-semibold">
+                    {ecosystemData.avgSessionTime}
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300">New Users Today</span>
-                <span className="text-white font-semibold">
-                  {ecosystemData.newUsers}
-                </span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300">Avg. Session Time</span>
-                <span className="text-white font-semibold">
-                  {ecosystemData.avgSessionTime}
-                </span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
 
-        <Card className="bg-gray-800 border-gray-700">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Globe className="mr-2 h-5 w-5 text-green-400" />
-              Global Coverage
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300">Countries Covered</span>
-                <span className="text-white font-semibold">
-                  {ecosystemData.countriesCovered}
-                </span>
+          <Card className="bg-gray-800 border-gray-700">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center text-lg">
+                <Globe className="mr-2 h-5 w-5 text-green-400" />
+                Global Coverage
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-300 text-sm">
+                    Countries Covered
+                  </span>
+                  <span className="text-white font-semibold">
+                    {ecosystemData.countriesCovered}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-300 text-sm">
+                    Currencies Supported
+                  </span>
+                  <span className="text-white font-semibold">
+                    {ecosystemData.currenciesSupported}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-300 text-sm">Payment Methods</span>
+                  <span className="text-white font-semibold">
+                    {ecosystemData.paymentMethods}
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300">Currencies Supported</span>
-                <span className="text-white font-semibold">
-                  {ecosystemData.currenciesSupported}
-                </span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300">Payment Methods</span>
-                <span className="text-white font-semibold">
-                  {ecosystemData.paymentMethods}
-                </span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
 
-        <Card className="bg-gray-800 border-gray-700">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Zap className="mr-2 h-5 w-5 text-yellow-400" />
-              System Performance
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300">Uptime</span>
-                <span className="text-green-400 font-semibold">
-                  {ecosystemData.uptime}%
-                </span>
+          <Card className="bg-gray-800 border-gray-700">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center text-lg">
+                <Zap className="mr-2 h-5 w-5 text-yellow-400" />
+                System Performance
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-300 text-sm">Uptime</span>
+                  <span className="text-green-400 font-semibold">
+                    {ecosystemData.uptime}%
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-300 text-sm">Response Time</span>
+                  <span className="text-white font-semibold">
+                    {ecosystemData.responseTime}ms
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-300 text-sm">Throughput</span>
+                  <span className="text-white font-semibold">
+                    {ecosystemData.throughput} TPS
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300">Response Time</span>
-                <span className="text-white font-semibold">
-                  {ecosystemData.responseTime}ms
-                </span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300">Throughput</span>
-                <span className="text-white font-semibold">
-                  {ecosystemData.throughput} TPS
-                </span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </DashboardShell>
   );

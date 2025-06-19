@@ -95,7 +95,8 @@ export function SystemHealthCard() {
                 healthStatus.api
               )} font-mono text-sm`}
             >
-              {getStatusIcon(healthStatus.api)} {healthStatus.api}
+              {getStatusIcon(healthStatus.api)}{" "}
+              <span className="hidden md:block">{healthStatus.api}</span>
             </span>
           </div>
 
@@ -109,7 +110,8 @@ export function SystemHealthCard() {
                 healthStatus.database
               )} font-mono text-sm`}
             >
-              {getStatusIcon(healthStatus.database)} {healthStatus.database}
+              {getStatusIcon(healthStatus.database)}{" "}
+              <span className="hidden md:block">{healthStatus.database}</span>
             </span>
           </div>
 
@@ -123,7 +125,8 @@ export function SystemHealthCard() {
                 healthStatus.ml_model
               )} font-mono text-sm`}
             >
-              {getStatusIcon(healthStatus.ml_model)} {healthStatus.ml_model}
+              {getStatusIcon(healthStatus.ml_model)}{" "}
+              <span className="hidden md:block">{healthStatus.ml_model}</span>
             </span>
           </div>
 
@@ -138,7 +141,9 @@ export function SystemHealthCard() {
               )} font-mono text-sm`}
             >
               {getStatusIcon(healthStatus.rules_engine)}{" "}
-              {healthStatus.rules_engine}
+              <span className="hidden md:block">
+                {healthStatus.rules_engine}
+              </span>
             </span>
           </div>
         </div>

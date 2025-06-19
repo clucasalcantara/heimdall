@@ -64,7 +64,7 @@ const generateTransactions = (count: number) => {
   return transactions;
 };
 
-const transactions = generateTransactions(50);
+const allTransactions = generateTransactions(200); // Generate more transactions
 
 export function TransactionFeed() {
   const [selectedTransaction, setSelectedTransaction] = useState<any | null>(
@@ -83,7 +83,7 @@ export function TransactionFeed() {
     setIsDialogOpen(true);
   };
 
-  const filteredTransactions = transactions
+  const filteredTransactions = allTransactions
     .filter((tx) => {
       if (filters.decision !== "all" && tx.decision !== filters.decision) {
         return false;
@@ -102,26 +102,28 @@ export function TransactionFeed() {
 
       return true;
     })
-    .slice(0, filters.limit);
+    .slice(0, filters.limit); // Apply limit here
 
   const uniqueCountries = Array.from(
-    new Set(transactions.map((tx) => tx.country))
+    new Set(allTransactions.map((tx) => tx.country))
   );
 
   return (
-    <>
-      <Card className="mb-6">
-        <CardContent className="pt-6">
-          <div className="grid gap-4 md:grid-cols-4">
+    <div className="space-y-4 md:space-y-6">
+      <Card className="mb-4 md:mb-6">
+        <CardContent className="pt-4 md:pt-6">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             <div>
-              <Label htmlFor="decision">Decision</Label>
+              <Label htmlFor="decision" className="text-sm font-medium">
+                Decision
+              </Label>
               <Select
                 value={filters.decision}
                 onValueChange={(value) =>
                   setFilters({ ...filters, decision: value })
                 }
               >
-                <SelectTrigger id="decision">
+                <SelectTrigger id="decision" className="mt-1">
                   <SelectValue placeholder="All Decisions" />
                 </SelectTrigger>
                 <SelectContent>
@@ -133,14 +135,16 @@ export function TransactionFeed() {
               </Select>
             </div>
             <div>
-              <Label htmlFor="country">Country</Label>
+              <Label htmlFor="country" className="text-sm font-medium">
+                Country
+              </Label>
               <Select
                 value={filters.country}
                 onValueChange={(value) =>
                   setFilters({ ...filters, country: value })
                 }
               >
-                <SelectTrigger id="country">
+                <SelectTrigger id="country" className="mt-1">
                   <SelectValue placeholder="All Countries" />
                 </SelectTrigger>
                 <SelectContent>
@@ -153,8 +157,8 @@ export function TransactionFeed() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="md:col-span-2">
-              <Label>
+            <div className="sm:col-span-2 lg:col-span-1">
+              <Label className="text-sm font-medium">
                 Risk Score Range: {filters.riskRange[0]} -{" "}
                 {filters.riskRange[1]}
               </Label>
@@ -174,14 +178,16 @@ export function TransactionFeed() {
               />
             </div>
             <div>
-              <Label htmlFor="limit">Limit</Label>
+              <Label htmlFor="limit" className="text-sm font-medium">
+                Limit
+              </Label>
               <Select
                 value={filters.limit.toString()}
                 onValueChange={(value) =>
                   setFilters({ ...filters, limit: Number.parseInt(value) })
                 }
               >
-                <SelectTrigger id="limit">
+                <SelectTrigger id="limit" className="mt-1">
                   <SelectValue placeholder="25 transactions" />
                 </SelectTrigger>
                 <SelectContent>
@@ -199,11 +205,12 @@ export function TransactionFeed() {
 
       <Card>
         <CardContent className="p-0">
-          <div className="flex items-center justify-between p-4 border-b">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border-b space-y-2 sm:space-y-0">
             <div className="text-sm text-muted-foreground">
-              Showing {filteredTransactions.length} transactions
+              Showing {filteredTransactions.length} of {allTransactions.length}{" "}
+              transactions
             </div>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="w-full sm:w-auto">
               <RefreshCw className="mr-2 h-4 w-4" />
               Refresh
             </Button>
@@ -212,15 +219,27 @@ export function TransactionFeed() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b">
-                  <th className="px-4 py-3 text-left font-medium">ID</th>
-                  <th className="px-4 py-3 text-left font-medium">User</th>
-                  <th className="px-4 py-3 text-left font-medium">Country</th>
-                  <th className="px-4 py-3 text-left font-medium">Amount</th>
-                  <th className="px-4 py-3 text-left font-medium">Time</th>
-                  <th className="px-4 py-3 text-left font-medium">
-                    Risk Score
+                  <th className="px-2 md:px-4 py-3 text-left font-medium">
+                    ID
                   </th>
-                  <th className="px-4 py-3 text-left font-medium">Decision</th>
+                  <th className="px-2 md:px-4 py-3 text-left font-medium hidden sm:table-cell">
+                    User
+                  </th>
+                  <th className="px-2 md:px-4 py-3 text-left font-medium">
+                    Country
+                  </th>
+                  <th className="px-2 md:px-4 py-3 text-left font-medium">
+                    Amount
+                  </th>
+                  <th className="px-2 md:px-4 py-3 text-left font-medium hidden md:table-cell">
+                    Time
+                  </th>
+                  <th className="px-2 md:px-4 py-3 text-left font-medium">
+                    Risk
+                  </th>
+                  <th className="px-2 md:px-4 py-3 text-left font-medium">
+                    Decision
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -236,15 +255,25 @@ export function TransactionFeed() {
                     }`}
                     onClick={() => handleRowClick(tx)}
                   >
-                    <td className="px-4 py-3">{tx.id}</td>
-                    <td className="px-4 py-3">{tx.user}</td>
-                    <td className="px-4 py-3">{tx.country}</td>
-                    <td className="px-4 py-3">{tx.amount}</td>
-                    <td className="px-4 py-3">{tx.time}</td>
-                    <td className="px-4 py-3">
+                    <td className="px-2 md:px-4 py-3 font-mono text-xs">
+                      {tx.id.slice(0, 6)}...
+                    </td>
+                    <td className="px-2 md:px-4 py-3 hidden sm:table-cell text-xs md:text-sm">
+                      {tx.user}
+                    </td>
+                    <td className="px-2 md:px-4 py-3 text-xs md:text-sm">
+                      {tx.country}
+                    </td>
+                    <td className="px-2 md:px-4 py-3 font-semibold text-xs md:text-sm">
+                      {tx.amount}
+                    </td>
+                    <td className="px-2 md:px-4 py-3 hidden md:table-cell text-xs">
+                      {tx.time}
+                    </td>
+                    <td className="px-2 md:px-4 py-3">
                       <RiskScoreBadge score={tx.riskScore} />
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-2 md:px-4 py-3">
                       <DecisionBadge decision={tx.decision} />
                     </td>
                   </tr>
@@ -260,7 +289,7 @@ export function TransactionFeed() {
         open={isDialogOpen}
         onOpenChange={setIsDialogOpen}
       />
-    </>
+    </div>
   );
 }
 
@@ -274,7 +303,7 @@ function RiskScoreBadge({ score }: { score: number }) {
 
   return (
     <span
-      className={`inline-block rounded-full px-2 py-1 text-xs font-medium ${color}`}
+      className={`inline-block rounded-full px-1.5 md:px-2 py-0.5 md:py-1 text-xs font-medium ${color}`}
     >
       {score}
     </span>
@@ -282,12 +311,14 @@ function RiskScoreBadge({ score }: { score: number }) {
 }
 
 function DecisionBadge({ decision }: { decision: string }) {
+  const baseClasses = "text-xs px-1.5 md:px-2 py-0.5 md:py-1";
+
   switch (decision) {
     case "approve":
       return (
         <Badge
           variant="outline"
-          className="bg-green-100 text-green-800 hover:bg-green-100"
+          className={`${baseClasses} bg-green-100 text-green-800 hover:bg-green-100`}
         >
           Approve
         </Badge>
@@ -296,7 +327,7 @@ function DecisionBadge({ decision }: { decision: string }) {
       return (
         <Badge
           variant="outline"
-          className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100"
+          className={`${baseClasses} bg-yellow-100 text-yellow-800 hover:bg-yellow-100`}
         >
           Review
         </Badge>
@@ -305,12 +336,16 @@ function DecisionBadge({ decision }: { decision: string }) {
       return (
         <Badge
           variant="outline"
-          className="bg-red-100 text-red-800 hover:bg-red-100"
+          className={`${baseClasses} bg-red-100 text-red-800 hover:bg-red-100`}
         >
           Block
         </Badge>
       );
     default:
-      return <Badge variant="outline">{decision}</Badge>;
+      return (
+        <Badge variant="outline" className={baseClasses}>
+          {decision}
+        </Badge>
+      );
   }
 }
