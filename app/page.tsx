@@ -113,14 +113,9 @@ export default function DashboardPage() {
           </div>
         </DashboardHeader>
 
-        {/* System Health Overview */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <div className="md:col-span-2">
-            <SystemHealthCard />
-          </div>
-          <div className="md:col-span-2">
-            <PerformanceMetrics />
-          </div>
+        <div className="flex justify-between gap-5 flex-col md:flex-row">
+          <SystemHealthCard />
+          <PerformanceMetrics />
         </div>
 
         {/* KPI Cards */}

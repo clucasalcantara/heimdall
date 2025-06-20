@@ -76,7 +76,7 @@ export function SystemHealthCard() {
   };
 
   return (
-    <Card className="bg-gray-800 border-gray-700 md:col-span-2">
+    <Card className="bg-gray-800 border-gray-700 w-full">
       <CardHeader>
         <CardTitle className="text-white flex items-center">
           <Activity className="mr-2 h-5 w-5 text-green-400" />

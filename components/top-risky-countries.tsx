@@ -109,7 +109,7 @@ export function TopRiskyCountries() {
   };
 
   return (
-    <Card className="h-full flex flex-col">
+    <Card className="h-full flex flex-col bg-gray-800 border-gray-700">
       <CardHeader>
         <CardTitle>Top Risky Countries</CardTitle>
         <CardDescription>
